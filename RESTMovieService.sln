@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieLib", "MovieLib\MovieL
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControllerTests", "ControllerTests\ControllerTests.csproj", "{FCCCB053-4F1E-45A0-A410-CF1D02809B25}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsumeREST", "ConsumeREST\ConsumeREST.csproj", "{0322122F-9C68-4C90-BE3D-FD38C897A889}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{FCCCB053-4F1E-45A0-A410-CF1D02809B25}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FCCCB053-4F1E-45A0-A410-CF1D02809B25}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FCCCB053-4F1E-45A0-A410-CF1D02809B25}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0322122F-9C68-4C90-BE3D-FD38C897A889}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0322122F-9C68-4C90-BE3D-FD38C897A889}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0322122F-9C68-4C90-BE3D-FD38C897A889}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0322122F-9C68-4C90-BE3D-FD38C897A889}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
