@@ -80,7 +80,7 @@ namespace ConsumeREST
         {
             using (HttpClient client = new HttpClient())
             {
-                HttpResponseMessage resp = await client.GetAsync(URI + id);
+                HttpResponseMessage resp = await client.GetAsync(URI + "/" + id);
 
                 if (resp.IsSuccessStatusCode)
                 {
