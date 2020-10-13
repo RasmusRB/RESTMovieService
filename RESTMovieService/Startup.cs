@@ -25,6 +25,15 @@ namespace RESTMovieService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin",
+                        builder => builder.WithOrigins("http://zealand.dk").AllowAnyMethod().AllowAnyHeader());
+                options.AddPolicy("AllowAnyOrigin",
+                        builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+                options.AddPolicy("AllowAnyOriginGetPut", builder => builder.AllowAnyOrigin().WithMethods("GET", "PUT").AllowAnyHeader());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,6 +45,8 @@ namespace RESTMovieService
             }
 
             app.UseRouting();
+
+            app.UseCors("AllowAnyOriginGetPut"); // allows use of cors, any origin
 
             app.UseAuthorization();
 
