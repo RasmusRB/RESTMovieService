@@ -11,7 +11,7 @@ namespace RESTMovieService.DBUtil
 {
     public class ManageMovies
     {
-        private const string connectionString = @"Server=tcp:rasmus-movie-db-server.database.windows.net,1433;Initial Catalog=Rasmus-movie-db;Persist Security Info=False;User ID=Rasmus;Password={Secret1234};MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+        private const string connectionString = "Data Source=rasmus-movie-db-server.database.windows.net;Initial Catalog=Rasmus-movie-db;User ID=Rasmus;Password=Secret1234;Connect Timeout=30;Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         private const string GET_ALL = "Select * from Movie";
         private const string GET_ID = "Select * from Movie WHERE Id = @Id";
         private const string POST = "Insert into Movie(Id, Title, Director, Genre, ReleaseYear, ImdbRating) values(@Id, @Title, @Director, @Genre, @ReleaseYear, @ImdbRating)";
@@ -23,41 +23,46 @@ namespace RESTMovieService.DBUtil
             List<Movies> movies = new List<Movies>();
 
             using (SqlConnection conn = new SqlConnection(connectionString))
-            using (SqlCommand cmd = new SqlCommand(GET_ALL, conn))
             {
                 conn.Open();
-                SqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    Movies m = ReadNextElement(reader);
-                    movies.Add(m);
-                }
-                reader.Close();
-            }
 
-            return movies;
+                using (SqlCommand cmd = new SqlCommand(GET_ALL, conn))
+                {
+                    SqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        Movies m = ReadNextElement(reader);
+                        movies.Add(m);
+                    }
+                    reader.Close();
+                }
+                return movies;
+            }
         }
 
         public Movies GetById(int id)
         {
             Movies movie = new Movies();
 
-            using (SqlConnection  conn = new SqlConnection(connectionString))
-            using (SqlCommand cmd = new SqlCommand(GET_ID, conn))
+            using (SqlConnection conn = new SqlConnection(connectionString))
             {
                 conn.Open();
-                {
-                    cmd.Parameters.AddWithValue("@Id", id);
-                    SqlDataReader reader = cmd.ExecuteReader();
 
-                    if (reader.Read())
+                using (SqlCommand cmd = new SqlCommand(GET_ID, conn))
+                {
                     {
-                        movie = ReadNextElement(reader);
+                        cmd.Parameters.AddWithValue("@Id", id);
+                        SqlDataReader reader = cmd.ExecuteReader();
+
+                        if (reader.Read())
+                        {
+                            movie = ReadNextElement(reader);
+                        }
                     }
                 }
-            }
 
-            return movie;
+                return movie;
+            }
         }
 
         public void Post(Movies value)
