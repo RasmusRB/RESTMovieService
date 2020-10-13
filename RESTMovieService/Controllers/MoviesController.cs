@@ -52,7 +52,7 @@ namespace RESTMovieService.Controllers
         [Route("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult Get(int id)
+        public IActionResult GetById(int id)
         {
             if (movies.Exists(m => m.Id == id))
             {

@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RESTMovieService", "RESTMov
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MovieLib", "MovieLib\MovieLib.csproj", "{1EC16AF5-1710-4EF6-BB73-FD32ABFDE744}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControllerTests", "ControllerTests\ControllerTests.csproj", "{FCCCB053-4F1E-45A0-A410-CF1D02809B25}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{1EC16AF5-1710-4EF6-BB73-FD32ABFDE744}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1EC16AF5-1710-4EF6-BB73-FD32ABFDE744}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1EC16AF5-1710-4EF6-BB73-FD32ABFDE744}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FCCCB053-4F1E-45A0-A410-CF1D02809B25}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FCCCB053-4F1E-45A0-A410-CF1D02809B25}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FCCCB053-4F1E-45A0-A410-CF1D02809B25}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FCCCB053-4F1E-45A0-A410-CF1D02809B25}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
