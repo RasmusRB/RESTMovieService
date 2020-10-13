@@ -12,7 +12,12 @@ namespace ConsumeREST
     internal class RESTConsumer
     {
 
-        private static readonly string URI = "https://moviesrestful.azurewebsites.net/api/movies";
+        private const string URI = "https://moviesrestful.azurewebsites.net/api/movies";
+
+        public RESTConsumer()
+        {
+
+        }
 
         internal async void Start()
         {
@@ -48,6 +53,16 @@ namespace ConsumeREST
             PrintHeader("Creating new movie");
             Movies newMovie = new Movies(101, "Idk", "PJ", "Fantasy", 1999, 4.9);
             await CreateNewMovie(newMovie);
+
+            //PrintHeader("Deleting movie nr 101");
+            //await DeleteMovie(101);
+
+            // udskriver alle movies
+            movies = await GetAllMoviesAsync();
+            foreach (Movies movie in movies)
+            {
+                Console.WriteLine(movie);
+            }
         }
 
         private async Task<IList<Movies>> GetAllMoviesAsync()
@@ -74,7 +89,7 @@ namespace ConsumeREST
 
                     return movie;
                 }
-                throw new KeyNotFoundException($"Fejl  code ={resp.StatusCode} message={await resp.Content.ReadAsStringAsync()}");
+                throw new KeyNotFoundException($"Error code ={resp.StatusCode} message={await resp.Content.ReadAsStringAsync()}");
             }
         }
 
@@ -89,7 +104,38 @@ namespace ConsumeREST
                 {
                     return movie;
                 }
+
                 throw new ArgumentException("Create failed");
+            }
+        }
+
+        private async Task UpdateMovie(Movies movie)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                StringContent content = new StringContent(JsonConvert.SerializeObject(movie), Encoding.UTF8, "application/json");
+
+                HttpResponseMessage resp = await client.PutAsync(URI + movie.Id, content);
+                if (resp.IsSuccessStatusCode)
+                {
+                    return;
+                }
+
+                throw new ArgumentException("Update failed");
+            }
+        }
+
+        private async Task DeleteMovie(int id)
+        {
+            using (HttpClient client = new HttpClient())
+            {
+                HttpResponseMessage resp = await client.DeleteAsync(URI + id);
+                if (resp.IsSuccessStatusCode)
+                {
+                    return;
+                }
+
+                throw new ArgumentException("Delete failed");
             }
         }
 
