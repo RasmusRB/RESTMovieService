@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using MovieLib.Model;
+using RESTMovieService.DBUtil;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,6 +15,8 @@ namespace RESTMovieService.Controllers
     [ApiController]
     public class MoviesController : ControllerBase
     {
+        ManageMovies mm = new ManageMovies();
+
         private static readonly List<Movies> movies = new List<Movies>()
         {
             new Movies(1, "The Fellowship of the Ring", "Peter Jackson", "Fantasy", 2001, 8.8),
@@ -44,7 +47,7 @@ namespace RESTMovieService.Controllers
         [HttpGet]
         public IEnumerable<Movies> Get()
         {
-            return movies;
+            return mm.Get();
         }
 
         // GET api/<MoviesController>/5
@@ -52,7 +55,7 @@ namespace RESTMovieService.Controllers
         [Route("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public IActionResult GetById(int id)
+        public IActionResult GetByIdStatusCodes(int id)
         {
             if (movies.Exists(m => m.Id == id))
             {
@@ -62,11 +65,18 @@ namespace RESTMovieService.Controllers
             return NotFound($"Movie id : {id} not found");
         }
 
+        [HttpGet]
+        [Route("{id}")]
+        public Movies GetById(int id)
+        {
+            return mm.GetById(id);
+        }
+
         // POST api/<MoviesController>
         [HttpPost]
         public void Post([FromBody] Movies value)
         {
-            movies.Add(value);
+           mm.Post(value);
         }
 
         // PUT api/<MoviesController>/5
@@ -74,27 +84,14 @@ namespace RESTMovieService.Controllers
         [Route("{id}")]
         public void Put(int id, [FromBody] Movies value)
         {
-            Movies movie = movies.Find(m => m.Id == id);
-            if (movie != null)
-            {
-                movie.Id = value.Id;
-                movie.Director = value.Director;
-                movie.Title = value.Title;
-                movie.ReleaseYear = value.ReleaseYear;
-                movie.ImdbRating = value.ImdbRating;
-                movie.Genre = value.Genre;
-            }
+            mm.Put(id, value);
         }
 
         // DELETE api/<MoviesController>/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            Movies movie = movies.Find(m => m.Id == id);
-            if (movie != null)
-            {
-                movies.Remove(movie);
-            }
+            mm.Delete(id);
         }
     }
 }
